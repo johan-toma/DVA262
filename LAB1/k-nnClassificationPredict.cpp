@@ -37,9 +37,9 @@ std::vector<double> KNNClassifier::predict(const std::vector<std::vector<double>
 
         //it iterates through the distance-label-map which contains pairs of distances and labels representing the distance between
         //current datapoint and training data points
-        for (auto iterator = distance_label_map.begin(); iterator != distance_label_map.end() && k > 0; iterator++, k--) {
+        for (auto i = distance_label_map.begin(); i != distance_label_map.end() && k > 0; i++, k--) {
             //acesss to label associated to current distance in map
-            double label = iterator->second;
+            double label = i->second;
             //foreach iteration it takes the label assosiated with current distance and increments the label_count
             //basically it will count the amount of times each label appears among k-nn of the data points
             label_count[label]++;
