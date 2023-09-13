@@ -21,7 +21,7 @@ std::vector<double> KNNRegression::predict(const std::vector<std::vector<double>
         //create map of distance to label
         std::map<double, double> distance_label_map;
         //calculate distances between current data point and training datapoints
-
+        
         for (int i = 0; i < X_train_.size(); i++) {
             //access teh current trainting data point from x_train store
             const std::vector<double>& train_point = X_train_[i];
@@ -29,7 +29,6 @@ std::vector<double> KNNRegression::predict(const std::vector<std::vector<double>
             double distance = SimilarityFunctions::euclideanDistance(data_point, train_point);
             //store the label associated with current training data point from y_train
             double label = y_train_[i];
-
             //store the distance-label pairs
             distance_label_map[distance] = label;
         }
@@ -40,9 +39,9 @@ std::vector<double> KNNRegression::predict(const std::vector<std::vector<double>
         double label_sum = 0.0;
 
         //loop through the distance label map to find the k-nn and calculate their label sum
-        for (auto iterator = distance_label_map.begin(); iterator != distance_label_map.end() && k > 0; iterator++, k--) {
+        for (auto i = distance_label_map.begin(); i != distance_label_map.end() && k > 0; i++, k--) {
             //access the label associated with current neightbor from the distance label map
-            double label = iterator->second;
+            double label = i->second;
             //add the label of the current neighbour into label sum
             label_sum += label;
         }
@@ -53,5 +52,7 @@ std::vector<double> KNNRegression::predict(const std::vector<std::vector<double>
         y_pred.push_back(average_label);
     }
 	//TODO
+
+
 	return y_pred; 
 }
