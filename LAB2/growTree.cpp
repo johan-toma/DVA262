@@ -1,4 +1,3 @@
-// growTree function: This function grows a decision tree using the given data and labelsand  return a pointer to the root node of the decision tree.//
 Node* DecisionTreeClassification::growTree(std::vector<std::vector<double>>& X, std::vector<double>& y, int depth) {
 	
 	/* Implement the following:
@@ -8,19 +7,19 @@ Node* DecisionTreeClassification::growTree(std::vector<std::vector<double>>& X, 
 		---grow the children that result from the split
 	*/
 
+
+	double best_gain = -1.0; // set the best gain to -1
+
+	int split_idx = -1; // split index
+	double split_thresh = 0.0; // split threshold
+
 	//define the stopping criterias for tree growth
 	if (depth == 0 || y.size() < min_samples_split) {
 		//create a leaf node and assign it most common label
 		double predicted_label = DecisionTreeClassification::mostCommonlLabel(y);
-		Node* node = new Node(predicted_label);
+		Node* node = new Node(split_idx, split_thresh, NULL, NULL, predicted_label);
 		return node;
 	}
-
-
-	double best_gain = -1.0; // set the best gain to -1
-
-	int split_idx = NULL; // split index
-	double split_thresh = NULL; // split threshold
 
 	//loop through potential features and split thresholds
 	//X[0] access the first data point in the set to determine the amount of features this is done to find the size of the features in each data point
@@ -42,9 +41,9 @@ Node* DecisionTreeClassification::growTree(std::vector<std::vector<double>>& X, 
 	}
 
 	//no split has been found that improves the information gain, create leaf node.
-	if (best_gain == -1.0) {
+	if (best_gain <= 0.0) {
 		double predicted_label = DecisionTreeClassification::mostCommonlLabel(y);
-		Node* node = new Node(predicted_label);
+		Node* node = new Node();
 		return node;
 	}
 
