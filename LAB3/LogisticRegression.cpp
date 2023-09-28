@@ -42,7 +42,7 @@ void LogisticRegression::fit(const std::vector<std::vector<double>>& X_train, co
         --- Calculate the sigmoid of the weighted sum
         --- Update weights using gradient descent
     */
-    for (double class_label = 1; class_label <= num_classes; ++class_label) {
+    for (double class_label = 1; class_label <= num_classes; class_label++) {
         //converting into binary the classes 1,2,3 to 1,0
         std::vector<double> binaryLabels;
         for (double label : y_train) {
@@ -74,7 +74,7 @@ void LogisticRegression::fit(const std::vector<std::vector<double>>& X_train, co
 
                 // Update weights using gradient descent for each feature
                 for (int j = 0; j < num_features; j++) {
-                    //calculate the difference between the label and sigmoid output
+                    //calculate the difference between the true label and sigmoid output
                     double diff = binaryLabels[i] - sigmoid_output;
                     weights[class_label - 1][j] += learning_rate * diff * sigmoid_output * (1.0 - sigmoid_output) * features[j];
                 }
