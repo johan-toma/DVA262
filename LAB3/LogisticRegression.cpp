@@ -91,11 +91,11 @@ std::vector<double> LogisticRegression::predict(const std::vector<std::vector<do
     for (const std::vector<double>& sample : X_test) {
         std::vector<double> class_probabilities;
         //then loop through all classes in weights vector
-        for (int class_label = 1; class_label <= weights.size(); ++class_label) {
+        for (int class_label = 1; class_label <= weights.size(); class_label++) {
             
             //calculte the weighted sum of features
             double weighted_sum = 0.0;
-            for (double j = 0; j < sample.size(); ++j) {
+            for (double j = 0; j < sample.size(); j++) {
                 weighted_sum += weights[class_label - 1][j] * sample[j];
             }
 
@@ -108,7 +108,7 @@ std::vector<double> LogisticRegression::predict(const std::vector<std::vector<do
         //find the class with the highest probability and assign it as the prediction, 
         int predicted_class = 1;
         double max_probability = class_probabilities[0];
-        for (int class_label = 2; class_label <= weights.size(); ++class_label) {
+        for (int class_label = 2; class_label <= weights.size(); class_label++) {
             //if the statement is not fulfilled that would mean that the predicted class is equal to 1
             //and tahts why the class_label is set too 2 instead of 1.
             if (class_probabilities[class_label - 1] > max_probability) {
