@@ -22,8 +22,7 @@ using namespace System::Windows::Forms; // For MessageBox
 // Constractor
 
 LogisticRegression::LogisticRegression(double learning_rate, int num_epochs)
-    : learning_rate(0.001), num_epochs(5000) {}
-
+    : learning_rate(learning_rate), num_epochs(100) {}
 // Fit method for training the logistic regression model
 void LogisticRegression::fit(const std::vector<std::vector<double>>& X_train, const std::vector<double>& y_train) {
     int num_features = X_train[0].size();
